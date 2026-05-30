@@ -1,6 +1,6 @@
 class OdontogramsController < ApplicationController
   before_action :set_patient
-  before_action :set_odontogram, only: [:show, :update_tooth_state, :create_new_version]
+  before_action :set_odontogram, only: [:show, :update_tooth_state, :create_new_version, :undo_last_change]
 
   def index
     @odontograms = @patient.odontograms.order(version: :desc)
@@ -66,6 +66,37 @@ class OdontogramsController < ApplicationController
   def create_new_version
     new_odonto = @odontogram.duplicate_as_new_version(user_id: 1)
     redirect_to patient_odontogram_path(@patient, new_odonto), notice: "Nueva versión creada."
+  end
+
+  def undo_last_change
+    last = @odontogram.state_histories.recent.first
+    unless last
+      redirect_to patient_odontogram_path(@patient, @odontogram), alert: "No hay cambios para deshacer."
+      return
+    end
+
+    tooth_number = last.tooth_number
+    face = last.face
+    old_state = last.old_state
+
+    if old_state == "healthy" || old_state.blank?
+      @odontogram.tooth_states.where(tooth_number: tooth_number, face: face).destroy_all
+    else
+      ts = @odontogram.tooth_states.find_or_initialize_by(tooth_number: tooth_number, face: face)
+      ts.update!(state: old_state)
+    end
+
+    @odontogram.record_change(
+      tooth_number: tooth_number,
+      face: face,
+      old_state: last.new_state,
+      new_state: old_state,
+      user_id: 1
+    )
+
+    last.destroy!
+
+    redirect_to patient_odontogram_path(@patient, @odontogram), notice: "Cambio deshecho."
   end
 
   private

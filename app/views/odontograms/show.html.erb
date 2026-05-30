@@ -1,9 +1,3 @@
-<%# Expose states to JavaScript %>
-<script>
-window.Odontogram = window.Odontogram || {};
-Odontogram.STATES = <%= raw Odontogram::STATES.to_json %>;
-</script>
-
 <div class="container" data-controller="odontogram"
      data-odontogram-patient-id-value="<%= @patient.id %>"
      data-odontogram-odontogram-id-value="<%= @odontogram.id %>"
@@ -30,20 +24,22 @@ Odontogram.STATES = <%= raw Odontogram::STATES.to_json %>;
         </button>
       <% end %>
     </div>
-    <div>
+    <div style="display: flex; gap: 8px;">
+      <%= button_to "Deshacer", undo_last_change_patient_odontogram_path(@patient, @odontogram), method: :post, class: "btn btn-secondary", form_class: "inline" %>
       <%= button_to "Nueva Versión", create_new_version_patient_odontogram_path(@patient, @odontogram), method: :post, class: "btn btn-secondary", form_class: "inline" %>
     </div>
   </div>
 
   <div class="odontogram-canvas">
     <% @odontogram.teeth_by_quadrant.each do |quadrant, teeth| %>
-      <div class="quadrant quadrant-<%= quadrant %>">
+      <div class="quadrant">
         <div class="quadrant-label">Cuadrante <%= quadrant %></div>
         <div class="teeth-row">
           <% teeth.each do |tooth_number| %>
-            <div>
-              <%= render partial: "tooth", locals: { tooth_number: tooth_number, state_data: @tooth_data[tooth_number] || {} } %>
-            </div>
+            <svg width="<%= OdontogramHelper::ARCH_TOOTH_W %>" height="<%= OdontogramHelper::ARCH_TOOTH_H %>" viewBox="0 0 <%= OdontogramHelper::ARCH_TOOTH_W %> <%= OdontogramHelper::ARCH_TOOTH_H %>"
+                 data-tooth="<%= tooth_number %>" class="tooth-svg">
+              <%= render partial: "tooth_body", locals: { tooth_number: tooth_number, state_data: @tooth_data[tooth_number] || {}, tooth_w: 48, tooth_h: 62 } %>
+            </svg>
           <% end %>
         </div>
       </div>
