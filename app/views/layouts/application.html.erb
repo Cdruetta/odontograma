@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Odontograma</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= stylesheet_link_tag "application" %>
+    <%= javascript_importmap_tags %>
+  </head>
+  <body>
+    <nav style="background:#0d6efd;padding:10px 20px;">
+      <a href="/" style="color:#fff;font-weight:700;font-size:1.1em;">Odontograma</a>
+    </nav>
+    <% if notice %>
+      <p style="background:#d4edda;color:#155724;padding:10px 20px;margin:0;"><%= notice %></p>
+    <% end %>
+    <%= yield %>
+  </body>
+</html>

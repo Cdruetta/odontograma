@@ -1,0 +1,29 @@
+<div class="container">
+  <h1>Pacientes</h1>
+  <%= link_to "Nuevo Paciente", new_patient_path, class: "btn btn-primary" %>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Fecha Nac.</th>
+        <th>Edad</th>
+        <th>Teléfono</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @patients.each do |patient| %>
+        <tr>
+          <td><%= link_to patient.name, patient %></td>
+          <td><%= patient.birth_date %></td>
+          <td><%= patient.age %></td>
+          <td><%= patient.phone %></td>
+          <td>
+            <%= link_to "Editar", edit_patient_path(patient) %> |
+            <%= button_to "Eliminar", patient, method: :delete, data: { turbo_confirm: "¿Está seguro?" } %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

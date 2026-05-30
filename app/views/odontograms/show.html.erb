@@ -1,0 +1,78 @@
+<%# Expose states to JavaScript %>
+<script>
+window.Odontogram = window.Odontogram || {};
+Odontogram.STATES = <%= raw Odontogram::STATES.to_json %>;
+</script>
+
+<div class="container" data-controller="odontogram"
+     data-odontogram-patient-id-value="<%= @patient.id %>"
+     data-odontogram-odontogram-id-value="<%= @odontogram.id %>"
+     data-odontogram-update-url-value="<%= update_tooth_state_patient_odontogram_path(@patient, @odontogram) %>">
+  <div class="header">
+    <h1><%= @patient.name %></h1>
+    <div class="patient-info">
+      <span><strong>Edad:</strong> <%= @patient.age || "—" %> años</span>
+      <span><strong>Tipo:</strong> <%= @odontogram.odontogram_type == "child" ? "Infantil" : "Adulto" %></span>
+      <span><strong>Versión:</strong> <%= @odontogram.version %></span>
+      <span><strong>Fecha:</strong> <%= l @odontogram.created_at, format: :long %></span>
+    </div>
+  </div>
+
+  <div class="toolbar">
+    <div class="state-selector">
+      <strong>Estado:</strong>
+      <% Odontogram::STATES.each do |key, val| %>
+        <button class="state-btn <%= 'active' if key == :carious %>"
+                data-action="click->odontogram#selectState"
+                data-state="<%= key %>"
+                style="<%= "--state-color: #{val[:color] || '#6c757d'}" %>">
+          <%= val[:label] %>
+        </button>
+      <% end %>
+    </div>
+    <div>
+      <%= button_to "Nueva Versión", create_new_version_patient_odontogram_path(@patient, @odontogram), method: :post, class: "btn btn-secondary", form_class: "inline" %>
+    </div>
+  </div>
+
+  <div class="odontogram-canvas">
+    <% @odontogram.teeth_by_quadrant.each do |quadrant, teeth| %>
+      <div class="quadrant quadrant-<%= quadrant %>">
+        <div class="quadrant-label">Cuadrante <%= quadrant %></div>
+        <div class="teeth-row">
+          <% teeth.each do |tooth_number| %>
+            <div>
+              <%= render partial: "tooth", locals: { tooth_number: tooth_number, state_data: @tooth_data[tooth_number] || {} } %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="history-section">
+    <h3>Historial de Cambios</h3>
+    <table class="table table-sm">
+      <thead>
+        <tr>
+          <th>Fecha</th>
+          <th>Diente</th>
+          <th>Cara</th>
+          <th>Estado Anterior</th>
+          <th>Estado Nuevo</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @odontogram.state_histories.recent.limit(20).each do |h| %>
+          <tr>
+            <td><%= l h.changed_at, format: :short %></td>
+            <td><%= h.tooth_number %></td>
+            <td><%= h.face %></td>
+            <td><%= h.old_state %></td>
+            <td><%= h.new_state %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

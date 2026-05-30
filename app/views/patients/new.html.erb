@@ -1,0 +1,25 @@
+<div class="container">
+  <h1>Nuevo Paciente</h1>
+  <%= form_with model: @patient, local: true do |f| %>
+    <div class="field">
+      <%= f.label :name, "Nombre" %>
+      <%= f.text_field :name, required: true %>
+    </div>
+    <div class="field">
+      <%= f.label :birth_date, "Fecha de Nacimiento" %>
+      <%= f.date_field :birth_date %>
+    </div>
+    <div class="field">
+      <%= f.label :phone, "Teléfono" %>
+      <%= f.phone_field :phone %>
+    </div>
+    <div class="field">
+      <%= f.label :email, "Email" %>
+      <%= f.email_field :email %>
+    </div>
+    <div class="actions">
+      <%= f.submit "Guardar" %>
+      <%= link_to "Cancelar", patients_path %>
+    </div>
+  <% end %>
+</div>
