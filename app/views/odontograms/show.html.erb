@@ -63,9 +63,9 @@
           <tr>
             <td><%= l h.changed_at, format: :short %></td>
             <td><%= h.tooth_number %></td>
-            <td><%= h.face %></td>
-            <td><%= h.old_state %></td>
-            <td><%= h.new_state %></td>
+            <td><%= Odontogram::FACES_LABELS[h.face] || h.face %></td>
+            <td><%= Odontogram::STATES.dig(h.old_state&.to_sym, :label) || h.old_state %></td>
+            <td><%= Odontogram::STATES.dig(h.new_state&.to_sym, :label) || h.new_state %></td>
           </tr>
         <% end %>
       </tbody>

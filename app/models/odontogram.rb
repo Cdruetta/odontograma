@@ -23,6 +23,17 @@ class Odontogram < ApplicationRecord
 
   FACES = %w[whole occlusal incisal vestibular palatal lingual mesial distal].freeze
 
+  FACES_LABELS = {
+    "whole" => "Completo",
+    "occlusal" => "Oclusal",
+    "incisal" => "Incisal",
+    "vestibular" => "Vestibular",
+    "palatal" => "Palatino",
+    "lingual" => "Lingual",
+    "mesial" => "Mesial",
+    "distal" => "Distal"
+  }.freeze
+
   STATES = {
     healthy:    { label: "Sano",         color: nil },
     carious:    { label: "Cariado",      color: "#dc3545" },
