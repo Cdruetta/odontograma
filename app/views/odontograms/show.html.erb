@@ -39,9 +39,7 @@
             <% tooth_h = 62 %>
             <svg width="<%= OdontogramHelper::ARCH_TOOTH_W %>" height="<%= tooth_h %>" viewBox="0 0 <%= OdontogramHelper::ARCH_TOOTH_W %> <%= tooth_h %>"
                  data-tooth="<%= tooth_number %>" class="tooth-svg">
-              <% if quadrant == 1 || quadrant == 2 %><g transform="scale(1,-1) translate(0,-<%= tooth_h %>)"><% end %>
-              <%= render partial: "tooth_body", locals: { tooth_number: tooth_number, state_data: @tooth_data[tooth_number] || {}, tooth_w: 48, tooth_h: tooth_h } %>
-              <% if quadrant == 1 || quadrant == 2 %></g><% end %>
+              <%= render partial: "tooth_body", locals: { tooth_number: tooth_number, state_data: @tooth_data[tooth_number] || {}, tooth_w: 48, tooth_h: tooth_h, flipped: (quadrant == 1 || quadrant == 2) } %>
             </svg>
           <% end %>
         </div>

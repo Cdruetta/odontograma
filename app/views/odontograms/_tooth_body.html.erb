@@ -2,6 +2,8 @@
 <% sd = local_assigns[:state_data] || {} %>
 <% w = local_assigns[:tooth_w] || 72 %>
 <% h = local_assigns[:tooth_h] || 96 %>
+<% flipped = local_assigns[:flipped] || false %>
+<% fy = ->(y) { flipped ? h - y : y } %>
 <% paths = tooth_face_paths(w, h, tooth_number) %>
 <% outline = paths[:outline] %>
 <% root = paths[:root] %>
@@ -14,29 +16,20 @@
 <% is_implant = whole_state == "implant" %>
 <% is_prosthesis = whole_state == "prosthesis" %>
 
+<% if flipped %><g transform="scale(1,-1) translate(0,-<%= h %>)"><% end %>
+
 <% if is_missing %>
   <path d="<%= outline %>"
         fill="#495057" fill-opacity="0.35" stroke="#999" stroke-width="1.2" />
   <line x1="4" y1="4" x2="<%= w - 4 %>" y2="<%= h - 4 %>" stroke="#212529" stroke-width="2.5" />
   <line x1="<%= w - 4 %>" y1="4" x2="4" y2="<%= h - 4 %>" stroke="#212529" stroke-width="2.5" />
-  <text x="<%= w / 2 %>" y="<%= h / 2 + 4 %>"
-        text-anchor="middle" font-size="<%=(w * 0.18).to_i%>" fill="#212529" font-weight="bold"
-        class="tooth-state-letter">AUSENTE</text>
   <path d="<%= root %>" fill="#495057" fill-opacity="0.35" stroke="#999" stroke-width="0.8" />
 <% elsif is_implant %>
   <path d="<%= outline %>"
         fill="#198754" fill-opacity="0.15" stroke="#198754" stroke-width="2" />
-  <text x="<%= w / 2 %>" y="<%= h / 2 + 3 %>"
-        text-anchor="middle" font-size="<%=(w * 0.28).to_i%>" fill="#198754" font-weight="bold"
-        class="tooth-state-letter">I</text>
-  <text x="<%= w / 2 %>" y="<%= h / 2 + 16 %>" text-anchor="middle" font-size="6" fill="#198754">Implante</text>
 <% elsif is_prosthesis %>
   <path d="<%= outline %>"
         fill="#ffc107" fill-opacity="0.15" stroke="#ffc107" stroke-width="2" />
-  <text x="<%= w / 2 %>" y="<%= h / 2 + 3 %>"
-        text-anchor="middle" font-size="<%=(w * 0.28).to_i%>" fill="#856404" font-weight="bold"
-        class="tooth-state-letter">P</text>
-  <text x="<%= w / 2 %>" y="<%= h / 2 + 16 %>" text-anchor="middle" font-size="6" fill="#856404">Prótesis</text>
 <% else %>
   <defs>
     <clipPath id="crown-clip-<%= tooth_number %>">
@@ -44,13 +37,9 @@
     </clipPath>
   </defs>
 
-  <%# Root outline %>
   <path d="<%= root %>" fill="#e8e2d5" stroke="#ccc" stroke-width="0.8" />
-
-  <%# Crown outline %>
   <path d="<%= outline %>" fill="#fff" stroke="#bbb" stroke-width="1.2" />
 
-  <%# Face regions clipped to crown shape %>
   <g clip-path="url(#crown-clip-<%= tooth_number %>)">
     <% faces.each do |face, d| %>
       <% fs = sd[face.to_s] %>
@@ -68,11 +57,28 @@
       </path>
     <% end %>
   </g>
+<% end %>
 
-  <%# Face labels %>
+<% if flipped %></g><% end %>
+
+<% if is_missing %>
+  <text x="<%= w / 2 %>" y="<%= fy.call(h / 2 + 4) %>"
+        text-anchor="middle" font-size="<%=(w * 0.18).to_i%>" fill="#212529" font-weight="bold"
+        class="tooth-state-letter">AUSENTE</text>
+<% elsif is_implant %>
+  <text x="<%= w / 2 %>" y="<%= fy.call(h / 2 + 3) %>"
+        text-anchor="middle" font-size="<%=(w * 0.28).to_i%>" fill="#198754" font-weight="bold"
+        class="tooth-state-letter">I</text>
+  <text x="<%= w / 2 %>" y="<%= fy.call(h / 2 + 16) %>" text-anchor="middle" font-size="6" fill="#198754">Implante</text>
+<% elsif is_prosthesis %>
+  <text x="<%= w / 2 %>" y="<%= fy.call(h / 2 + 3) %>"
+        text-anchor="middle" font-size="<%=(w * 0.28).to_i%>" fill="#856404" font-weight="bold"
+        class="tooth-state-letter">P</text>
+  <text x="<%= w / 2 %>" y="<%= fy.call(h / 2 + 16) %>" text-anchor="middle" font-size="6" fill="#856404">Prótesis</text>
+<% else %>
   <% labels.each do |face, lbl| %>
     <% fs = sd[face.to_s] %>
-    <text x="<%= lbl[:x] %>" y="<%= lbl[:y] %>"
+    <text x="<%= lbl[:x] %>" y="<%= fy.call(lbl[:y]) %>"
           text-anchor="middle" font-size="<%=(w * 0.1).to_i%>" font-weight="600"
           fill="<%= fs ? '#fff' : '#999' %>"
           class="face-label face-label-<%= face %>"
@@ -80,8 +86,7 @@
   <% end %>
 <% end %>
 
-<%# Tooth number label at bottom %>
-<text x="<%= w / 2 %>" y="<%= h - 3 %>"
+<text x="<%= w / 2 %>" y="<%= fy.call(h - 3) %>"
       text-anchor="middle" font-size="<%=(w * 0.23).to_i%>" fill="#555" font-weight="700"
       class="tooth-number-label"><%= tooth_number %></text>
 
