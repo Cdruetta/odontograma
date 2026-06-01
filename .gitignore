@@ -33,3 +33,16 @@
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key
+
+# Windows
+Thumbs.db
+Desktop.ini
+
+# Editor temp files
+*.swp
+*.swo
+*~
+
+# SQLite journal files
+*.sqlite3-journal
+*.sqlite3-wal
