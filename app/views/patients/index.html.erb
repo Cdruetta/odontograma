@@ -1,6 +1,8 @@
 <div class="container">
-  <h1>Pacientes</h1>
-  <%= link_to "Nuevo Paciente", new_patient_path, class: "btn btn-primary" %>
+  <div style="display: flex; justify-content: space-between; align-items: center;">
+    <h1>Pacientes</h1>
+    <%= link_to "Nuevo", new_patient_path, class: "btn-action btn-action--new" %>
+  </div>
   <table class="table">
     <thead>
       <tr>
