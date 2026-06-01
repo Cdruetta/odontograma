@@ -55,12 +55,12 @@ body {
 .state-selector strong { font-size: 0.75em; margin-right: 2px; white-space: nowrap; }
 
 .state-btn {
-  padding: 3px 8px;
+  padding: 4px 10px;
   border: 1.5px solid var(--state-color, #ccc);
   background: #fff;
-  border-radius: 12px;
+  border-radius: 14px;
   cursor: pointer;
-  font-size: 0.7em;
+  font-size: 0.75em;
   font-weight: 600;
   white-space: nowrap;
   color: var(--state-color, #333);
