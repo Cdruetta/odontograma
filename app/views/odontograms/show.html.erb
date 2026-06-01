@@ -12,24 +12,8 @@
         <span><strong>Fecha:</strong> <%= l @odontogram.created_at, format: :long %></span>
       </div>
     </div>
-    <%= link_to "Salir", patients_path, class: "btn btn-secondary", style: "font-size: 0.8em;" %>
-  </div>
-
-  <div class="toolbar">
-    <div class="state-selector">
-      <strong>Estado:</strong>
-      <% Odontogram::STATES.each do |key, val| %>
-        <button class="state-btn <%= 'active' if key == :carious %>"
-                data-action="click->odontogram#selectState"
-                data-state="<%= key %>"
-                style="<%= "--state-color: #{val[:color] || '#6c757d'}" %>">
-          <%= val[:label] %>
-        </button>
-      <% end %>
-    </div>
-    <div style="display: flex; gap: 8px; align-items: center; position: relative;">
-      <%= button_to "Deshacer", undo_last_change_patient_odontogram_path(@patient, @odontogram), method: :post, class: "btn btn-secondary", form_class: "inline" %>
-      <%# button_to "Nueva Versión", create_new_version_patient_odontogram_path(@patient, @odontogram), method: :post, class: "btn btn-secondary", form_class: "inline" %>
+    <div style="display: flex; gap: 6px; align-items: center; position: relative;">
+      <%= link_to "Salir", patients_path, class: "btn btn-secondary", style: "font-size: 0.8em;" %>
       <button type="button" class="btn-help" data-action="click->odontogram#toggleHelp" title="Ayuda">?</button>
       <div class="help-panel">
         <div class="help-panel__content">
@@ -45,6 +29,23 @@
           <%= button_to "Guardar versión", create_new_version_patient_odontogram_path(@patient, @odontogram), method: :post, class: "btn-help-action" %>
         </div>
       </div>
+    </div>
+  </div>
+
+  <div class="toolbar">
+    <div class="state-selector">
+      <strong>Estado:</strong>
+      <% Odontogram::STATES.each do |key, val| %>
+        <button class="state-btn <%= 'active' if key == :carious %>"
+                data-action="click->odontogram#selectState"
+                data-state="<%= key %>"
+                style="<%= "--state-color: #{val[:color] || '#6c757d'}" %>">
+          <%= val[:label] %>
+        </button>
+      <% end %>
+    </div>
+    <div style="display: flex; gap: 8px; align-items: center;">
+      <%= button_to "Deshacer", undo_last_change_patient_odontogram_path(@patient, @odontogram), method: :post, class: "btn btn-secondary", form_class: "inline" %>
     </div>
   </div>
 
