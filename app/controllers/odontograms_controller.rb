@@ -26,6 +26,10 @@ class OdontogramsController < ApplicationController
     face = params[:face] || "whole"
     new_state = params[:state]
 
+    if @odontogram.odontogram_type == "child" && new_state.in?(Odontogram::CHILD_RESTRICTED)
+      return render json: { error: "Estado no disponible para niños" }, status: :unprocessable_entity
+    end
+
     # "missing", "implant", and "prosthesis" apply to the whole tooth
     if %w[missing implant prosthesis].include?(new_state)
       @odontogram.tooth_states.where(tooth_number: tooth_number).destroy_all

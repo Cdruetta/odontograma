@@ -34,6 +34,8 @@ class Odontogram < ApplicationRecord
     "distal" => "Distal"
   }.freeze
 
+  CHILD_RESTRICTED = %w[prosthesis].freeze
+
   STATES = {
     healthy:    { label: "Sano",         color: nil },
     carious:    { label: "Cariado",      color: "#dc3545" },

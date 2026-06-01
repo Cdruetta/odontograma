@@ -21,7 +21,7 @@
           <ol>
             <li><strong>Seleccioná un estado</strong> en la barra (Sano, Cariado, Tratado, etc.)</li>
             <li><strong>Clic en una cara</strong> del diente (V, M, O/I, D, P/L) para marcarla</li>
-            <li><strong>Ausente, Implante y Prótesis</strong> se aplican al diente completo</li>
+            <li><strong>Ausente, Implante y Prótesis</strong> se aplican al diente completo<%= @odontogram.odontogram_type == "child" ? " (Prótesis no disponible para niños)" : "" %></li>
             <li><strong>Deshacer</strong> revierte el último cambio</li>
             <li><strong>Nueva Versión</strong> guarda una copia del estado actual para poder volver a ella después</li>
           </ol>
@@ -35,7 +35,7 @@
   <div class="toolbar">
     <div class="state-selector">
       <strong>Estado:</strong>
-      <% Odontogram::STATES.each do |key, val| %>
+      <% Odontogram::STATES.reject { |k, _| @odontogram.odontogram_type == "child" && k.to_s.in?(Odontogram::CHILD_RESTRICTED) }.each do |key, val| %>
         <button class="state-btn <%= 'active' if key == :carious %>"
                 data-action="click->odontogram#selectState"
                 data-state="<%= key %>"
