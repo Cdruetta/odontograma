@@ -204,7 +204,8 @@ body {
   box-shadow: 0 1px 3px rgba(0,0,0,0.1);
 }
 
-.history-section h3 { margin-bottom: 10px; font-size: 1.1em; }
+.history-section summary { margin-bottom: 10px; }
+.history-section summary::-webkit-details-marker { color: #888; }
 
 a { color: #0d6efd; text-decoration: none; }
 a:hover { text-decoration: underline; }
