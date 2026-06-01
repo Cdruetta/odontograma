@@ -49,10 +49,10 @@
         <div class="quadrant-label">Cuadrante <%= quadrant %></div>
         <div class="teeth-row">
           <% teeth.each do |tooth_number| %>
-            <% tooth_h = 62 %>
-            <svg width="<%= OdontogramHelper::ARCH_TOOTH_W %>" height="<%= tooth_h %>" viewBox="0 0 <%= OdontogramHelper::ARCH_TOOTH_W %> <%= tooth_h %>"
+            <% tooth_w = 56 %><% tooth_h = 72 %>
+            <svg width="<%= tooth_w %>" height="<%= tooth_h %>" viewBox="0 0 <%= tooth_w %> <%= tooth_h %>"
                  data-tooth="<%= tooth_number %>" class="tooth-svg">
-              <%= render partial: "tooth_body", locals: { tooth_number: tooth_number, state_data: @tooth_data[tooth_number] || {}, tooth_w: 48, tooth_h: tooth_h, flipped: (quadrant == 1 || quadrant == 2) } %>
+              <%= render partial: "tooth_body", locals: { tooth_number: tooth_number, state_data: @tooth_data[tooth_number] || {}, tooth_w: tooth_w, tooth_h: tooth_h, flipped: (quadrant == 1 || quadrant == 2) } %>
             </svg>
           <% end %>
         </div>
