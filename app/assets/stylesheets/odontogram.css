@@ -32,7 +32,7 @@ body {
 
 .toolbar {
   background: #fff;
-  padding: 10px 12px;
+  padding: 12px 16px;
   border-radius: 8px;
   box-shadow: 0 1px 3px rgba(0,0,0,0.1);
   margin-bottom: 16px;
@@ -40,7 +40,7 @@ body {
   justify-content: space-between;
   align-items: center;
   flex-wrap: nowrap;
-  gap: 6px;
+  gap: 10px;
 }
 
 .state-selector {
@@ -52,15 +52,15 @@ body {
   flex: 1;
 }
 
-.state-selector strong { font-size: 0.75em; margin-right: 2px; white-space: nowrap; }
+.state-selector strong { font-size: 0.85em; margin-right: 4px; white-space: nowrap; }
 
 .state-btn {
-  padding: 4px 10px;
-  border: 1.5px solid var(--state-color, #ccc);
+  padding: 6px 14px;
+  border: 2px solid var(--state-color, #ccc);
   background: #fff;
-  border-radius: 14px;
+  border-radius: 18px;
   cursor: pointer;
-  font-size: 0.75em;
+  font-size: 0.85em;
   font-weight: 600;
   white-space: nowrap;
   color: var(--state-color, #333);
