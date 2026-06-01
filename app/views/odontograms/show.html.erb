@@ -2,14 +2,17 @@
      data-odontogram-patient-id-value="<%= @patient.id %>"
      data-odontogram-odontogram-id-value="<%= @odontogram.id %>"
      data-odontogram-update-url-value="<%= update_tooth_state_patient_odontogram_path(@patient, @odontogram) %>">
-  <div class="header">
-    <h1><%= @patient.name %></h1>
-    <div class="patient-info">
-      <span><strong>Edad:</strong> <%= @patient.age || "—" %> años</span>
-      <span><strong>Tipo:</strong> <%= @odontogram.odontogram_type == "child" ? "Infantil" : "Adulto" %></span>
-      <span><strong>Versión:</strong> <%= @odontogram.version %></span>
-      <span><strong>Fecha:</strong> <%= l @odontogram.created_at, format: :long %></span>
+  <div class="header" style="display: flex; justify-content: space-between; align-items: flex-start;">
+    <div>
+      <h1><%= @patient.name %></h1>
+      <div class="patient-info">
+        <span><strong>Edad:</strong> <%= @patient.age || "—" %> años</span>
+        <span><strong>Tipo:</strong> <%= @odontogram.odontogram_type == "child" ? "Infantil" : "Adulto" %></span>
+        <span><strong>Versión:</strong> <%= @odontogram.version %></span>
+        <span><strong>Fecha:</strong> <%= l @odontogram.created_at, format: :long %></span>
+      </div>
     </div>
+    <%= link_to "Salir", patients_path, class: "btn btn-secondary", style: "font-size: 0.8em;" %>
   </div>
 
   <div class="toolbar">
