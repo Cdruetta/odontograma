@@ -36,9 +36,12 @@
         <div class="quadrant-label">Cuadrante <%= quadrant %></div>
         <div class="teeth-row">
           <% teeth.each do |tooth_number| %>
-            <svg width="<%= OdontogramHelper::ARCH_TOOTH_W %>" height="<%= OdontogramHelper::ARCH_TOOTH_H %>" viewBox="0 0 <%= OdontogramHelper::ARCH_TOOTH_W %> <%= OdontogramHelper::ARCH_TOOTH_H %>"
+            <% tooth_h = 62 %>
+            <svg width="<%= OdontogramHelper::ARCH_TOOTH_W %>" height="<%= tooth_h %>" viewBox="0 0 <%= OdontogramHelper::ARCH_TOOTH_W %> <%= tooth_h %>"
                  data-tooth="<%= tooth_number %>" class="tooth-svg">
-              <%= render partial: "tooth_body", locals: { tooth_number: tooth_number, state_data: @tooth_data[tooth_number] || {}, tooth_w: 48, tooth_h: 62 } %>
+              <% if quadrant == 1 || quadrant == 2 %><g transform="scale(1,-1) translate(0,-<%= tooth_h %>)"><% end %>
+              <%= render partial: "tooth_body", locals: { tooth_number: tooth_number, state_data: @tooth_data[tooth_number] || {}, tooth_w: 48, tooth_h: tooth_h } %>
+              <% if quadrant == 1 || quadrant == 2 %></g><% end %>
             </svg>
           <% end %>
         </div>
