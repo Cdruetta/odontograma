@@ -8,7 +8,7 @@
       <div class="patient-info">
         <span><strong>Edad:</strong> <%= @patient.age || "—" %> años</span>
         <span><strong>Tipo:</strong> <%= @odontogram.odontogram_type == "child" ? "Infantil" : "Adulto" %></span>
-        <span><strong>Versión:</strong> <%= @odontogram.version %></span>
+
         <span><strong>Fecha:</strong> <%= l @odontogram.created_at, format: :long %></span>
       </div>
     </div>
@@ -23,10 +23,9 @@
             <li><strong>Clic en una cara</strong> del diente (V, M, O/I, D, P/L) para marcarla</li>
             <li><strong>Ausente, Implante y Prótesis</strong> se aplican al diente completo<%= @odontogram.odontogram_type == "child" ? " (Implante y Prótesis no disponibles para niños)" : "" %></li>
             <li><strong>Deshacer</strong> revierte el último cambio</li>
-            <li><strong>Nueva Versión</strong> guarda una copia del estado actual para poder volver a ella después</li>
           </ol>
           <hr style="margin: 8px 0; border: none; border-top: 1px solid #eee;">
-          <%= button_to "Guardar versión", create_new_version_patient_odontogram_path(@patient, @odontogram), method: :post, class: "btn-help-action" %>
+          <%= button_to "Guardar copia", create_new_version_patient_odontogram_path(@patient, @odontogram), method: :post, class: "btn-help-action" %>
         </div>
       </div>
     </div>
