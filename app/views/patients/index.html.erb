@@ -19,9 +19,9 @@
           <td><%= patient.age %></td>
           <td><%= patient.phone %></td>
           <td>
-            <div style="display: flex; gap: 6px; align-items: center;">
-              <%= link_to "Editar", edit_patient_path(patient), class: "btn btn-secondary", style: "font-size: 0.75em; padding: 3px 8px;" %>
-              <%= button_to "Eliminar", patient, method: :delete, data: { turbo_confirm: "¿Está seguro?" }, class: "btn btn-secondary", style: "font-size: 0.75em; padding: 3px 8px;" %>
+            <div class="table-actions">
+              <%= link_to "Editar", edit_patient_path(patient), class: "btn-action btn-action--edit" %>
+              <%= button_to "Eliminar", patient, method: :delete, data: { turbo_confirm: "¿Está seguro?" }, class: "btn-action btn-action--delete" %>
             </div>
           </td>
         </tr>
