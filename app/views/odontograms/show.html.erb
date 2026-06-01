@@ -24,9 +24,23 @@
         </button>
       <% end %>
     </div>
-    <div style="display: flex; gap: 8px;">
+    <div style="display: flex; gap: 8px; align-items: center;">
       <%= button_to "Deshacer", undo_last_change_patient_odontogram_path(@patient, @odontogram), method: :post, class: "btn btn-secondary", form_class: "inline" %>
       <%= button_to "Nueva Versión", create_new_version_patient_odontogram_path(@patient, @odontogram), method: :post, class: "btn btn-secondary", form_class: "inline" %>
+      <button type="button" class="btn-help" data-action="click->odontogram#toggleHelp" title="Ayuda">?</button>
+    </div>
+  </div>
+
+  <div class="help-panel">
+    <div class="help-panel__content">
+      <h4>Cómo usar el odontograma</h4>
+      <ol>
+        <li><strong>Seleccioná un estado</strong> en la barra de herramientas (Sano, Cariado, Tratado, etc.)</li>
+        <li><strong>Hacé clic en una cara</strong> del diente (V, M, O/I, D, P/L) para marcarla con ese estado</li>
+        <li>Los estados <strong>Ausente, Implante y Prótesis</strong> se aplican al diente completo</li>
+        <li><strong>Deshacer</strong> revierte el último cambio</li>
+        <li><strong>Nueva Versión</strong> guarda una copia del estado actual antes de seguir modificando</li>
+      </ol>
     </div>
   </div>
 

@@ -45,4 +45,9 @@ export default class extends Controller {
     })
     .catch(error => console.error("Error:", error))
   }
+
+  toggleHelp() {
+    const panel = this.element.querySelector(".help-panel")
+    panel.classList.toggle("help-panel--visible")
+  }
 }
