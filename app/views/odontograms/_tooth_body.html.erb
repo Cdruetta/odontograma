@@ -64,18 +64,18 @@
 
 <% if is_missing %>
   <text x="<%= w / 2 %>" y="<%= fy.call(h / 2) %>"
-        text-anchor="middle" dominant-baseline="central" font-size="<%=(w * 0.2).to_i%>" fill="#212529" font-weight="bold"
+        text-anchor="middle" dy="0.35em" font-size="<%=(w * 0.2).to_i%>" fill="#212529" font-weight="bold"
         class="tooth-state-letter">AUSENTE</text>
 <% elsif is_implant %>
   <text x="<%= w / 2 %>" y="<%= fy.call(h / 2) %>"
-        text-anchor="middle" dominant-baseline="central" font-size="<%=(w * 0.32).to_i%>" fill="#198754" font-weight="bold"
+        text-anchor="middle" dy="0.35em" font-size="<%=(w * 0.32).to_i%>" fill="#198754" font-weight="bold"
         class="tooth-state-letter">I</text>
-  <text x="<%= w / 2 %>" y="<%= fy.call(h / 2 + 14) %>" text-anchor="middle" dominant-baseline="central" font-size="7" fill="#198754">Implante</text>
+  <text x="<%= w / 2 %>" y="<%= fy.call(h / 2 + 14) %>" text-anchor="middle" dy="0.35em" font-size="7" fill="#198754">Implante</text>
 <% elsif is_prosthesis %>
   <text x="<%= w / 2 %>" y="<%= fy.call(h / 2) %>"
-        text-anchor="middle" dominant-baseline="central" font-size="<%=(w * 0.32).to_i%>" fill="#856404" font-weight="bold"
+        text-anchor="middle" dy="0.35em" font-size="<%=(w * 0.32).to_i%>" fill="#856404" font-weight="bold"
         class="tooth-state-letter">P</text>
-  <text x="<%= w / 2 %>" y="<%= fy.call(h / 2 + 14) %>" text-anchor="middle" dominant-baseline="central" font-size="7" fill="#856404">Prótesis</text>
+  <text x="<%= w / 2 %>" y="<%= fy.call(h / 2 + 14) %>" text-anchor="middle" dy="0.35em" font-size="7" fill="#856404">Prótesis</text>
 <% else %>
   <% labels.each do |face, lbl| %>
     <% fs = sd[face.to_s] %>
