@@ -194,6 +194,18 @@ a:hover { text-decoration: underline; }
 .help-panel h4 { margin-bottom: 4px; font-size: 0.75em; }
 .help-panel ol { margin: 0; padding-left: 16px; }
 .help-panel li { margin-bottom: 2px; font-size: 0.7em; line-height: 1.3; }
+.btn-help-action {
+  width: 100%;
+  padding: 4px 8px;
+  border: 1px solid #6c757d;
+  border-radius: 4px;
+  background: #fff;
+  color: #6c757d;
+  font-size: 0.72em;
+  cursor: pointer;
+  text-align: center;
+}
+.btn-help-action:hover { background: #6c757d; color: #fff; }
 
 @media (max-width: 700px) {
   .odontogram-canvas { grid-template-columns: 1fr; }
