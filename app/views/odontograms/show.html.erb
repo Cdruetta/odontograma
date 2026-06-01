@@ -26,7 +26,7 @@
     </div>
     <div style="display: flex; gap: 8px; align-items: center; position: relative;">
       <%= button_to "Deshacer", undo_last_change_patient_odontogram_path(@patient, @odontogram), method: :post, class: "btn btn-secondary", form_class: "inline" %>
-      <%= button_to "Nueva Versión", create_new_version_patient_odontogram_path(@patient, @odontogram), method: :post, class: "btn btn-secondary", form_class: "inline" %>
+      <%# button_to "Nueva Versión", create_new_version_patient_odontogram_path(@patient, @odontogram), method: :post, class: "btn btn-secondary", form_class: "inline" %>
       <button type="button" class="btn-help" data-action="click->odontogram#toggleHelp" title="Ayuda">?</button>
       <div class="help-panel">
         <div class="help-panel__content">
