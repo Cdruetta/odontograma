@@ -4,6 +4,7 @@
 <% h = local_assigns[:tooth_h] || 96 %>
 <% flipped = local_assigns[:flipped] || false %>
 <% fy = ->(y) { flipped ? h - y : y } %>
+<% tn_y = flipped ? 12 : h - 3 %>
 <% paths = tooth_face_paths(w, h, tooth_number) %>
 <% outline = paths[:outline] %>
 <% root = paths[:root] %>
@@ -86,7 +87,7 @@
   <% end %>
 <% end %>
 
-<text x="<%= w / 2 %>" y="<%= fy.call(h - 3) %>"
+<text x="<%= w / 2 %>" y="<%= tn_y %>"
       text-anchor="middle" font-size="<%=(w * 0.23).to_i%>" fill="#555" font-weight="700"
       class="tooth-number-label"><%= tooth_number %></text>
 
